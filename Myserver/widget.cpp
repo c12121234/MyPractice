@@ -41,17 +41,11 @@ void Widget::HandleClickedSendText()
         ui->lineEditText->clear();
 
         QByteArray data;
-        data.resize(4);
-        data[0] = 0x00;
-        data[1] = 0x00;
-        data[2] = 0x00;
-        data[3] = 0x00;
-        data[0] = m_vec[0].first;
-        data[1] = m_vec[0].second;
-        data[2] = m_vec[1].first;
-        data[3] = m_vec[1].second;
+        QDataStream out(&data,QIODevice::ReadWrite);
+        out.setVersion(QDataStream::Qt_5_9);
+        out << m_vec[0].first<<m_vec[0].second<<m_vec[1].first<<m_vec[1].second;
 
-        m_pClient->write(data,4);
+        m_pClient->write(data);
         ui->plainTextEdit->appendPlainText("send to client!\n");
     }
     else
@@ -100,24 +94,20 @@ void Widget::HandleClickStart()
 }
 
 void Widget::ReceiveData()
-{
-    char Temp[4] ={0x00,0x00,0x00,0x00};
-    QByteArray data(Temp,4);
+{    
+    QByteArray data;
     data = m_pClient->readAll();
+    QDataStream in(&data,QIODevice::ReadWrite);
+    in.setVersion(QDataStream::Qt_5_9);
     ui->plainTextEdit->appendPlainText("receive data !\n");
     vector<int> vTemp(4,0);
-    for(int i = 0; i<4;++i)
-    {
-        vTemp[i] = data[i];
-
-    }
+    in>>vTemp[0]>>vTemp[1]>>vTemp[2]>>vTemp[3];
     m_vec[0].first = vTemp[0];
     m_vec[0].second = vTemp[1];
     m_vec[1].first = vTemp[2];
     m_vec[1].second = vTemp[3];
     QString strText = QString("%1,%2,%3,%4").arg(m_vec[0].first).arg(m_vec[0].second).arg(m_vec[1].first).arg(m_vec[1].second);
     ui->plainTextEdit->appendPlainText(strText);
-
 
 }
 
