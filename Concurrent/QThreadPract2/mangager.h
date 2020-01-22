@@ -11,6 +11,7 @@ class Manager : public QObject
     Q_OBJECT
 public:
     explicit Manager(QObject *parent = nullptr);
+    ~Manager();
     void start();
 
 public slots:

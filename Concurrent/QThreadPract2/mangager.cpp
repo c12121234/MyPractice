@@ -17,6 +17,12 @@ Manager::Manager(QObject *parent) : QObject(parent)
     }
 }
 
+Manager::~Manager()
+{
+    for(auto thread:m_Threads)
+        delete thread;
+}
+
 void Manager::start()
 {
     qInfo()<<"start...";
