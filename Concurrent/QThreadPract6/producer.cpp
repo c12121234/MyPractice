@@ -3,6 +3,7 @@
 #include <QMutex>
 #include <QMutexLocker>
 #include <QDebug>
+#include <QThread>
 Producer::Producer(QObject *parent) : QObject(parent)
 {
 
@@ -25,7 +26,11 @@ void Producer::HandleStart()
         int nVal = QRandomGenerator::global()->bounded(1000);
         QMutexLocker locker(m_pMutex);
         m_pListData->append(nVal);
-        if(m_pListData->size()>=100)
+        if(m_pListData->size()>=500)
+        {
+            qInfo()<<"Producer is ready."<<this->thread();
             emit ready();
+        }
+
     } while (true);
 }

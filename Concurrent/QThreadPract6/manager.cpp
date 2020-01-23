@@ -19,6 +19,7 @@ Manager::Manager(QObject *parent) : QObject(parent)
     connect(m_pProducer,&Producer::ready,this,&Manager::HandleReady,Qt::QueuedConnection);
     connect(m_pConsumerThread,&QThread::started,m_pConsumer,&Consumer::HandleStart,Qt::QueuedConnection);
 
+
     m_pProducerThread->setObjectName("Producer thread");
     m_pConsumerThread->setObjectName("Consumer thread");
     this->thread()->setObjectName("Manager thread");
@@ -37,10 +38,12 @@ void Manager::HandleStart()
 
     m_pProducerThread->start();
     m_pConsumerThread->start();
+
 }
 
 void Manager::HandleReady()
 {
     qInfo()<<"data is ready"<<this->thread();
+    QMutexLocker locker(m_pMutex);
     m_pwCondition->wakeAll();
 }

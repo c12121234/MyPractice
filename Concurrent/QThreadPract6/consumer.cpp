@@ -33,6 +33,6 @@ void Consumer::HandleStart()
         qInfo()<<"Consuming on "<<this->thread();
         QMutexLocker locker(m_pMutex);
         m_pListData->clear();
-        m_pwCondition->wait(m_pMutex);
+        m_pwCondition->wait(locker.mutex());
     } while(true);
 }
