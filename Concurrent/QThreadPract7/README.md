@@ -16,4 +16,6 @@
 
 InputSequence和Iterator都屬於Qt framework內的class，因此無法和std標準庫那些container交互使用，乖乖用QList吧
 
+然後函式會阻塞至所有元素完成function
+
 
