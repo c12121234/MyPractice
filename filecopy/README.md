@@ -88,3 +88,7 @@ int main() {
 ## 心得
 
 先熟悉可向下相容的寫法吧!
+
+## 參考資料
+
+https://stackoverflow.com/questions/22201663/find-and-move-files-in-c
