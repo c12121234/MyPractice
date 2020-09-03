@@ -17,4 +17,5 @@ function名稱                  | 功能
 **bytesAvailable()**|剩餘容量，同上
 
 
-[img](https://github.com/c12121234/WorkingExperence/blob/master/pic/QtStorage/storage001.png)
+![img](https://github.com/c12121234/WorkingExperence/blob/master/pic/QtStorage/storage001.png)
+
