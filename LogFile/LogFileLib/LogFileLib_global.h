@@ -1,0 +1,12 @@
+#ifndef LOGFILELIB_GLOBAL_H
+#define LOGFILELIB_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(LOGFILELIB_LIBRARY)
+#  define LOGFILELIB_EXPORT Q_DECL_EXPORT
+#else
+#  define LOGFILELIB_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // LOGFILELIB_GLOBAL_H
